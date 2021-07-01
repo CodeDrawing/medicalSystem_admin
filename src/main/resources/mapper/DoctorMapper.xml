@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.codezx.medicalsystem_admin.mapper.DoctorMapper">
+
+   <select id="queryAllDoctor" resultType="top.codezx.medicalsystem_admin.pojo.Doctor">
+    select * from doctor d,department dept where d.departmentId=dept.departmentId  limit #{page}, #{limit}
+   </select>
+    <!--   逻辑删除，物理不删除 使用update语句更新数据中的state-->
+    <update id="editStateById" parameterType="java.lang.Integer">
+        update doctor set state=#{param1} where doctorId=#{param2}
+    </update>
+    <select id="countDoctor" resultType="java.lang.Integer">
+        select count(*) as count from doctor
+    </select>
+
+    <delete id="removeDoctor" parameterType="string">
+        delete from doctor where doctorId in
+        <foreach collection ="doctorId" item="doctorId" open="(" separator="," close=")">
+            #{doctorId}
+        </foreach >
+    </delete>
+
+<!--    <delete id="removeDoctor" parameterType="java.lang.String">-->
+<!--        delete from doctor where doctorId=#{doctorId}-->
+<!--    </delete>-->
+
+    <select id="fuzzyQuery" parameterType="java.lang.String"  resultType="top.codezx.medicalsystem_admin.pojo.Doctor">
+        select * from doctor d,department dept where d.departmentId=dept.departmentId
+          and doctorName like CONCAT('%',#{doctorName},'%')
+          and departmentName like CONCAT('%',#{departmentName},'%')
+          and title like CONCAT('%',#{title},'%')
+<!--        <if test="doctorName!=null">-->
+<!--            doctorName=#{doctorName}-->
+<!--        </if>-->
+<!--        <if test="department!=null">-->
+<!--            and department=#{department}-->
+<!--        </if>-->
+<!--        <if test="title!=null">-->
+<!--            and title=#{title}-->
+<!--        </if>-->
+    </select>
+
+    <insert id="saveDoctor" parameterType="top.codezx.medicalsystem_admin.pojo.Doctor" >
+        insert into doctor (username,doctorName,phone,title,gender,departmentId,birthday,entryData,createAdmin)
+        value (#{userName},#{doctorName},#{phone},#{title},#{gender},#{departmentId},#{birthday},#{entryData},#{createAdmin})
+    </insert>
+
+    <update id="update" parameterType="top.codezx.medicalsystem_admin.pojo.Doctor">
+        update doctor set username=#{username},doctorName=#{doctorName},phone=#{phone},title=#{title}
+                        ,gender=#{gender},departmentId=#{departmentId},birthday=#{birthday}
+        where doctorId=#{doctorId}
+    </update>
+
+    <select id="queryDoctorByDcotorId" parameterType="java.lang.Integer" resultType="top.codezx.medicalsystem_admin.pojo.Doctor">
+        select * from doctor where doctorId=#{doctorId}
+    </select>
+
+</mapper>

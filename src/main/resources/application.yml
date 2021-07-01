@@ -1,0 +1,77 @@
+spring:
+  thymeleaf:
+    cache: false
+  reids:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 8
+
+
+  mvc:
+    date:
+    date-format: yyyy-MM-dd
+    hiddenmethod:
+      filter:
+        enabled: true
+  datasource:
+    username: root
+    password: '08290516'
+    url: jdbc:mysql://localhost:3306/medicalSystem?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2b8&rewriteBatchedStatements=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+      #Spring Boot 默认是不注入这些属性值的，需要自己绑定
+      #druid 数据源专有配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+      #配置监控统计拦截的filters，stat:监控统计、log4j：日志记录、wall：防御sql注入
+      #如果允许时报错  java.lang.ClassNotFoundException: org.apache.log4j.Priority
+      #则导入 log4j 依赖即可，Maven 地址：https://mvnrepository.com/artifact/log4j/log4j
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  mail:
+    host: smtp.qq.com #发送邮件服务器
+    username: 845391508@qq.com #发送邮件的邮箱地址
+    password: qiarltiwsazxbdcg #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+    properties.mail.smtp.port: 465 #端口号465或587
+    from: 845391508@qq.com # 发送邮件的地址，和上面username一致
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
+
+mybatis:
+  type-aliases-package: top.codezx.medicalsystem_admin.pojo
+  mapper-locations: classpath:mapper/*.xml
+#file.upload.path: /Volumes/studentText/uploadFile
+#file.upload.path.relative: /studentText/uploadFile/**
+server:
+  port: 80
+  tomcat:
+    max-swallow-size: 50MB
+    max-connections: 3000
+
+logging:
+  level:
+    cn:
+      lzc:
+        user:
+          mapper: debug

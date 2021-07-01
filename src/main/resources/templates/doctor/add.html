@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('医生员工新增')"/>
+    <link rel="stylesheet" th:href="@{/component/dtree/dtree.css}">
+    <link rel="stylesheet" th:href="@{/component/dtree/font/dtreefont.css}">
+</head>
+<body>
+<form class="layui-form">
+    <div class="mainBox">
+        <div class="main-container">
+            <div class="main-container">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" lay-verify="title" autocomplete="off" placeholder="请输入账号"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="doctorName" lay-verify="title" autocomplete="off" placeholder="请输入姓名"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phone" lay-verify="title" autocomplete="off" placeholder="请输入电话"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">职称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入职称"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="gender" value="0" title="男">
+                        <input type="radio" name="gender" value="1" title="女" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">科室</label>
+                    <div class="layui-input-block">
+                        <ul id="selectParent" name="departmentName" class="dtree" data-id="0"></ul>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">生日</label>
+                    <div class="layui-input-block">
+                        <input type="date" name="birthday" lay-verify="title" autocomplete="off" placeholder="请输入生日"
+                               class="layui-input">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                <i class="layui-icon layui-icon-ok"></i>
+                提交
+            </button>
+            <button type="reset" class="pear-btn pear-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
+<th:block th:include="include :: footer"/>
+<script>
+    layui.use(['form', 'jquery','dtree'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+        let dtree = layui.dtree;
+
+        // dtree.renderSelect({
+        //     elem: "#selectParent",
+        //     url: "/department/dept/tree",
+        //     method: 'get',
+        //     selectInputName: {nodeId: "departmentId", context: "departmentName"},
+        //     skin: "layui",
+        //     dataFormat: "list",
+        //     dataStyle:"layuiStyle",
+        //     // response: {treeId: "departmentId", parentId: "parentId", title: "departmentName"},
+        //     // selectInitVal: "1"
+        // });
+        dtree.renderSelect({
+            elem: "#selectParent",
+            url: "/department/dept/tree",
+            method: 'get',
+            selectInputName: {nodeId: "departmentId", context: "departmentName"},
+            skin: "layui",
+            dataFormat: "list",
+            dataStyle: "layuiStyle",
+            response: {treeId: "departmentId", parentId: "parentId", title: "departmentName"},
+            selectInitVal: "1"
+        });
+
+        form.on('submit(user-save)', function (data) {
+            // let roleIds = "";
+            // $('input[type=checkbox]:checked').each(function () {
+            //     roleIds += $(this).val() + ",";
+            // });
+            // roleIds = roleIds.substr(0, roleIds.length - 1);
+            // data.field.roleIds = roleIds;
+            $.ajax({
+                url: '/doctor/save',
+                data: JSON.stringify(data.field),
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'post',
+                success: function (data) {
+                    if (data.result==2005) {
+                        layer.msg(data.msg, {icon: 1, time: 1000}, function () {
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                            parent.layui.table.reload("user-table");
+                        });
+                    } else {
+                        layer.msg(data.msg, {icon: 2, time: 1000});
+                    }
+                }
+            })
+            return false;
+        });
+    })
+</script>
+<script>
+</script>
+</body>
+</html>

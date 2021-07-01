@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http:www/thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>登录</title>
+		<!-- 样 式 文 件 -->
+		<link rel="stylesheet" th:href="@{component/pear/css/pear.css}" />
+		<link rel="stylesheet" th:href="@{admin/css/other/login.css}" />
+	</head>
+    <!-- 代 码 结 构 -->
+	<body background="admin/images/background.svg" style="background-size: cover;">
+		<form class="layui-form" >
+			<div class="layui-form-item">
+				<img class="logo" action="javascript:void(0);" />
+				<div class="title">智慧医疗系统——管理员端</div>
+				<div class="desc">
+					打 造 最 便 捷 的 医 疗 系 统
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<input placeholder="请输入管理员账号" name="administratorName" lay-verify="required" hover class="layui-input"  />
+			</div>
+			<div class="layui-form-item">
+				<input placeholder="请输入管理员密码" name="password" lay-verify="required" hover class="layui-input"  />
+			</div>
+			<div class="layui-form-item">
+				<input placeholder="验证码 : "  hover  lay-verify="required" class="code layui-input layui-input-inline"  />
+				<img src="/system/captcha/generate" class="codeImage" id="captchaImage"/>
+			</div>
+			<div class="layui-form-item">
+				<input type="checkbox" name="" title="记住密码" lay-skin="primary" checked>
+			</div>
+			<div class="layui-form-item">
+				<button type="button" class="pear-btn pear-btn-success login" lay-submit  lay-filter="login">
+					登 入
+				</button>
+			</div>
+		</form>
+		<!-- 资 源 引 入 -->
+		<script th:src="@{component/layui/layui.js}"></script>
+		<script th:src="@{component/pear/pear.js}"></script>
+		<script th:src="@{component/code/jquery-1.11.3.min.js}"></script>
+		<script>
+			layui.use(['form','jquery','layer','button','popup'], function() {
+				let form = layui.form;
+				let $ = layui.jquery;
+				let layer = layui.layer;
+				let button = layui.button;
+				let popup = layui.popup;
+				let captchaPath = "/system/captcha/generate";
+
+				form.on('submit(login)', function(data){
+					let loader = layer.load();
+					let btn = button.load({elem: '.login'});
+					$.ajax({
+						url:'adminLogin',
+						data:data.field,
+						type:"POST",
+						dataType:'json',
+						success:function(data){
+							layer.close(loader);
+							btn.stop(function(){
+								if(data.result==2000){
+									layer.msg("登录成功，正在跳转！")
+										location.href = "toIndex";
+
+								}else{
+									layer.msg("登录失败！")
+									document.getElementById("captchaImage").src=captchaPath + "?" + Math.random();
+
+								}
+							})
+						}
+					});
+					return false;
+				});
+
+				$("#captchaImage").click(function(){
+					document.getElementById("captchaImage").src= captchaPath + "?" + Math.random();
+				})
+				setInterval(function(){
+					document.getElementById("captchaImage").src= captchaPath + "?" + Math.random();
+				},30 * 1000);
+				// validateKickout();
+			})
+		</script>
+<!--		<script>-->
+<!--			function commit() {-->
+<!--			  var administratorName=$("#administratorName").val();-->
+<!--			  var password=$("#password").val();-->
+<!--			  $.ajax({-->
+<!--				type:"POST",-->
+<!--				dataType:"json",-->
+<!--				async:false,-->
+<!--				//注意，这个localhost要和后台的域名一样，不让后台不能获取到session-->
+<!--				// 修改处-->
+<!--				url:"http://192.168.1.131/user/adminLogin",-->
+<!--				data:{"administratorName":administratorName,"password":password},-->
+<!--				xhrFields: {-->
+<!--				withCredentials: true-->
+<!--				},-->
+<!--				crossDomain: true,-->
+<!--				success:function(data){-->
+<!--				  if(data.result==2000){-->
+<!--					layer.msg("登陆成功，正在跳转",{icon: 1,time:2000, shade:0.4})-->
+<!--					window.location.href='/index.html';-->
+<!--				  }else{-->
+<!--					// alert("登陆失败，请检查用户名和密码！");-->
+<!--					layer.msg("登陆失败，请检查用户名和密码！",{icon: 2,time:2000, shade:0.4})-->
+<!--					}-->
+<!--				},  -->
+<!--				error:function(result){-->
+<!--					layer.msg("服务器错误，请稍后重试！",{icon: 2,time:2000, shade:0.4});-->
+<!--				}-->
+<!--			  })-->
+<!--			  return false;-->
+<!--			  }-->
+<!--		  </script>-->
+	</body>
+</html>

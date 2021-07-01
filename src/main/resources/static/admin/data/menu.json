@@ -1,0 +1,232 @@
+[
+  {
+    "id": "1",
+    "title": "数据图表",
+    "icon": "layui-icon layui-icon-chart",
+    "type": 0,
+    "href": "",
+    "children": [
+      {
+        "id": "11",
+        "title": "门诊人数",
+        "icon": "layui-icon layui-icon-face-smile",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "/toIndex"
+      },
+      {
+        "id": "12",
+        "title": "住院人数",
+        "icon": "layui-icon layui-icon-face-smile",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "/echars/toEchars"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "人员管理",
+    "type": 0,
+    "icon": "layui-icon layui-icon-console",
+    "href": "",
+    "children": [
+      {
+        "id": "21",
+        "title": "医生列表",
+        "icon": "layui-icon layui-icon-console",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "/doctor/toDoctorList"
+      },
+      {
+        "id": "22",
+        "title": "患者列表",
+        "icon": "layui-icon layui-icon-console",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/console/console1.html"
+      },
+      {
+        "id": "23",
+        "title": "管理员列表",
+        "icon": "layui-icon layui-icon-console",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/console/console2.html"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "排班管理",
+    "icon": "layui-icon layui-icon-component",
+    "type": 0,
+    "href": "",
+    "children": [
+      {
+        "id": "31",
+        "title": "住院部",
+        "icon": "layui-icon layui-icon-console",
+        "type": 0,
+        "children": [
+          {
+            "id": "311",
+            "title": "按科室",
+            "icon": "layui-icon layui-icon-face-smile",
+            "type": 1,
+            "openType": "_iframe",
+            "href": "view/document/button.html"
+          },
+          {
+            "id": "312",
+            "title": "按医生",
+            "icon": "layui-icon layui-icon-face-cry",
+            "type": 1,
+            "openType": "_iframe",
+            "href": "view/document/form.html"
+          }
+        ]
+      },
+      {
+        "id": "32",
+        "title": "门诊部",
+        "icon": "layui-icon layui-icon-console",
+        "type": 0,
+        "children": [
+          {
+            "id": "321",
+            "title": "按科室",
+            "icon": "layui-icon layui-icon-face-cry",
+            "type": 1,
+            "openType": "_iframe",
+            "href": "view/document/table.html"
+          },
+          {
+            "id": "322",
+            "title": "按医生",
+            "icon": "layui-icon layui-icon-face-cry",
+            "type": 1,
+            "openType": "_iframe",
+            "href": "view/document/step.html"
+          }
+        ]
+      },
+      {
+        "id": "33",
+        "title": "手术室",
+        "icon": "layui-icon layui-icon-console",
+        "type": 0,
+        "children": [
+          {
+            "id": "331",
+            "title": "按手术室号",
+            "icon": "layui-icon layui-icon-face-cry",
+            "type": 1,
+            "openType": "_iframe",
+            "href": "view/document/drawer.html"
+          },
+          {
+            "id": "332",
+            "title": "按医生",
+            "icon": "layui-icon layui-icon-face-cry",
+            "type": 1,
+            "openType": "_iframe",
+            "href": "view/document/notice.html"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "managerMedicinal",
+    "title": "药物管理",
+    "icon": "layui-icon layui-icon-auz",
+    "type": 0,
+    "href": "",
+    "children": [
+      {
+        "id": "41",
+        "title": "药物信息",
+        "icon": "layui-icon layui-icon-face-smile",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/result/success.html"
+      },
+      {
+        "id": "42",
+        "title": "供应商",
+        "icon": "layui-icon layui-icon-face-smile",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/result/success.html"
+      },
+      {
+        "id": "43",
+        "title": "开药审核权限",
+        "icon": "layui-icon layui-icon-face-cry",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/result/error.html"
+      }
+    ]
+  },
+  {
+    "id": "patientRegistered",
+    "title": "患者挂号",
+    "icon": "layui-icon layui-icon-face-cry",
+    "type": 0,
+    "href": "",
+    "children": [
+      {
+        "id": "51",
+        "title": "挂号信息列表",
+        "icon": "layui-icon layui-icon-face-smile",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/error/403.html"
+      },
+      {
+        "id": "52",
+        "title": "设置挂号限制",
+        "icon": "layui-icon layui-icon-face-cry",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/error/404.html"
+      }
+    ]
+  },
+  {
+    "id": "resourceManagement",
+    "title": "资源管理",
+    "icon": "layui-icon layui-icon-set-fill",
+    "type": 0,
+    "href": "",
+    "children": [
+      {
+        "id": "61",
+        "title": "住院大楼",
+        "icon": "layui-icon layui-icon-face-smile",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/system/user.html"
+      },
+      {
+        "id": "62",
+        "title": "门诊大楼",
+        "icon": "layui-icon layui-icon-face-cry",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/system/role.html"
+      },
+      {
+        "id": 63,
+        "title": "手术室",
+        "icon": "layui-icon layui-icon-face-cry",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "view/system/power.html"
+      }
+    ]
+  }
+]
